@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form autocomplete="off" #f="ngForm">
+    <div class="form-group">
+      <label for="codeInput">Matrícula</label>
+      <input type="email" class="form-control" id="codeInput" [(ngModel)]="student.code" name="code" required>
+    </div>
+    <div class="form-group">
+      <label for="firstNameInput">Nombre</label>
+      <input type="email" class="form-control" id="firstNameInput" [(ngModel)]="student.firstName" name="firstName" required>
+    </div>
+    <div class="form-group">
+      <label for="lastNameInput">Apellido</label>
+      <input type="email" class="form-control" id="lastNameInput" [(ngModel)]="student.lastName" name="lastName" required>
+    </div>
+    <div class="form-group">
+      <label for="phoneInput">Teléfono</label>
+      <input type="email" class="form-control" id="phoneInput" [(ngModel)]="student.phone" name="phone">
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" [disabled]="f.invalid" (click)="onSubmit()">Guardar</button>
+</div>
