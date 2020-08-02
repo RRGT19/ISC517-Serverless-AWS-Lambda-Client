@@ -1,5 +1,5 @@
 {
-  "name": "crud-spring-boot",
+  "name": "serverless-aws-lambda",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -21,6 +21,8 @@
     "@angular/router": "~8.2.14",
     "@ng-bootstrap/ng-bootstrap": "^5.3.1",
     "bootstrap": "^4.5.0",
+    "jquery": "^3.5.1",
+    "ngx-toastr": "^11.3.3",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

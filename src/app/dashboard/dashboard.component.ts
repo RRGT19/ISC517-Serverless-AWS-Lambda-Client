@@ -2,15 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ModalComponent} from "../modal/modal.component";
+import {map} from "rxjs/operators";
 
-export const API = 'http://localhost:8080/';
+export const API = 'https://my-awesome-api-gateway-endpoint';
 
 export interface IStudent {
   id: number;
-  code: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
+  name: string;
+  email: string;
+  time: string;
 }
 
 @Component({
@@ -32,16 +32,26 @@ export class DashboardComponent implements OnInit {
   }
 
   getAll() {
-    this.http.get<IStudent[]>(API).toPromise().then(res => this.studentList = res);
+    this.http.get<{ statusCode: number, body: string }>(API)
+      .pipe(
+        map(i => JSON.parse(i.body)),
+        map(items => items.sort((a1: IStudent, a2: IStudent) => {
+          if (a1.time < a2.time) return -1;
+          if (a1.time > a2.time) return 1;
+          return 0;
+        }))
+      )
+      .toPromise()
+      .then(res => this.studentList = res);
   }
 
   delete(studentId: number) {
-    this.http.delete(API + studentId).toPromise().then(() => this.getAll());
+    this.http.delete(API + '/' + studentId).toPromise().then(() => this.getAll());
   }
 
   launchModal(student?: IStudent) {
     const modalRef = this.modalService.open(ModalComponent);
-    modalRef.componentInstance.title = 'Crear nuevo';
+    modalRef.componentInstance.title = 'Crear';
     if (student) {
       const copyObj = JSON.parse(JSON.stringify(student));
       modalRef.componentInstance.title = 'Editar';

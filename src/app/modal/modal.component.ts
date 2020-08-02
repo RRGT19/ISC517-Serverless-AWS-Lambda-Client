@@ -10,12 +10,10 @@ import {HttpClient} from "@angular/common/http";
 export class ModalComponent {
 
   @Input() title: string;
-  @Input() student: IStudent = {
-    id: null,
-    firstName: null,
-    lastName: null,
-    code: null,
-    phone: null
+  @Input() student: Partial<IStudent> = {
+    name: null,
+    email: null,
+    time: null
   };
 
   constructor(
@@ -26,9 +24,11 @@ export class ModalComponent {
 
   onSubmit() {
     if (this.student.id) {
-      this.http.put<IStudent>(API, this.student).toPromise().then(() => this.modal.close('edited'));
+      this.http.put<IStudent>(API + '/' + this.student.id, this.student)
+        .toPromise().then(() => this.modal.close('edited'));
     } else {
-      this.http.post<IStudent>(API, this.student).toPromise().then(() => this.modal.close('created'));
+      this.http.post<IStudent>(API, this.student)
+        .toPromise().then(() => this.modal.close('created'));
     }
   }
 
