@@ -34,3 +34,11 @@ For the browser to download objects from the S3 bucket, the bucket and it's obje
     ]
 }
 ```
+
+## IAM role policies
+
+![IAM role policies](src/assets/iam-role-policies.png)
+
+## API Gateway config
+
+![IAM role policies](src/assets/api-gateway-config.png)
